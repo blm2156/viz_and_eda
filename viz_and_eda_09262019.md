@@ -61,3 +61,77 @@ weather_df
     ##  9 CentralPark_NY USW00094728 2017-01-09     0  -4.9  -9.9
     ## 10 CentralPark_NY USW00094728 2017-01-10     0   7.8  -6  
     ## # … with 1,085 more rows
+
+## create a ggplot
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) #Nothing happens w/ this code. We are missing what type of plot R should make. It has only initialized a graph but did not add anything to it
+```
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) + 
+  geom_point()  #Scatterplot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+
+Alternate way of making this plot
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point()
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+``` r
+#W/ this code, we are saying 1) start w/ data 2) create the plot (doesnt matter which method we use)
+```
+
+saving initial plots. mostly dont use this
+
+``` r
+weather_df %>% filter(name == "CentralPark_NY")
+```
+
+    ## # A tibble: 365 x 6
+    ##    name           id          date        prcp  tmax  tmin
+    ##    <chr>          <chr>       <date>     <dbl> <dbl> <dbl>
+    ##  1 CentralPark_NY USW00094728 2017-01-01     0   8.9   4.4
+    ##  2 CentralPark_NY USW00094728 2017-01-02    53   5     2.8
+    ##  3 CentralPark_NY USW00094728 2017-01-03   147   6.1   3.9
+    ##  4 CentralPark_NY USW00094728 2017-01-04     0  11.1   1.1
+    ##  5 CentralPark_NY USW00094728 2017-01-05     0   1.1  -2.7
+    ##  6 CentralPark_NY USW00094728 2017-01-06    13   0.6  -3.8
+    ##  7 CentralPark_NY USW00094728 2017-01-07    81  -3.2  -6.6
+    ##  8 CentralPark_NY USW00094728 2017-01-08     0  -3.8  -8.8
+    ##  9 CentralPark_NY USW00094728 2017-01-09     0  -4.9  -9.9
+    ## 10 CentralPark_NY USW00094728 2017-01-10     0   7.8  -6  
+    ## # … with 355 more rows
+
+``` r
+scatterplot = 
+  weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point()
+#You will only save the plot if you set it equal to something. In this example, we set the plot equal to "scatterplot"
+```
+
+adding color
+
+``` r
+  weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .4)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

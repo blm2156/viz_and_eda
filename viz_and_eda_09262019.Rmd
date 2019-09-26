@@ -27,3 +27,48 @@ weather_df =
 weather_df
 ```
 
+## create a ggplot
+
+```{r}
+ggplot(weather_df, aes(x = tmin, y = tmax)) #Nothing happens w/ this code. We are missing what type of plot R should make. It has only initialized a graph but did not add anything to it
+
+ggplot(weather_df, aes(x = tmin, y = tmax)) + 
+  geom_point()  #Scatterplot
+```
+
+Alternate way of making this plot
+
+```{r}
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point()
+#W/ this code, we are saying 1) start w/ data 2) create the plot (doesnt matter which method we use)
+```
+
+saving initial plots. mostly dont use this
+
+```{r}
+weather_df %>% filter(name == "CentralPark_NY")
+
+scatterplot = 
+  weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point()
+#You will only save the plot if you set it equal to something. In this example, we set the plot equal to "scatterplot"
+```
+
+adding  color 
+
+```{r}
+  weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .4)
+```
+
+
+
+
+
+
+
+
