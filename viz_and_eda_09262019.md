@@ -1,6 +1,6 @@
 viz\_and\_eda\_09262019
 ================
-Britney Aazzetta
+Britney Mazzetta
 
 ``` r
 weather_df = 
@@ -389,3 +389,25 @@ weather_df %>%  #piping - use weather_df in code for ggplot
     ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
 
 ![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
+
+saving a plot
+
+``` r
+weather_plot = ggplot(weather_df, aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .5) 
+
+ggsave("weather_plot.pdf", weather_plot, width = 8, height = 5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+Inbedding plots for r markdown
+
+``` r
+ggplot(weather_df, aes(x = tmax, fill = name)) + 
+  geom_density(alpha = .4, adjust = .5, color = "blue")
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
