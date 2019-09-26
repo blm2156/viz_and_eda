@@ -127,7 +127,7 @@ scatterplot =
 adding color
 
 ``` r
-  weather_df %>%
+weather_df %>%
   ggplot(aes(x = tmin, y = tmax)) + 
   geom_point(aes(color = name), alpha = .4)
 ```
@@ -135,3 +135,257 @@ adding color
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
 ![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+why do ‘aes’ positions matter?
+
+first
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .4) +
+  geom_smooth(se = FALSE)  #geom_smooth adds a line to the graph
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+vs
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .4) +
+  geom_smooth(se = FALSE)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+facet
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .4) +
+  geom_smooth(se = FALSE) +
+  facet_grid(~name)  #want name to be in the columns
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+this is fine, but not interesting
+
+``` r
+weather_df %>%
+  ggplot(aes(x = date, y = tmax, color = name)) + 
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+map of precipitation
+
+``` r
+weather_df %>%
+  ggplot(aes(x = date, y = prcp, color = name)) + 
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+weather_df %>%
+  ggplot(aes(x = date, y = tmax, color = name)) + 
+  geom_point(aes(size = prcp), alpha = 0.5) +
+  geom_smooth(size = 2, se = FALSE)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = date, y = tmax, color = name)) + 
+  geom_point(aes(size = prcp), alpha = .5) +
+  geom_smooth(se = FALSE) + 
+  facet_grid(. ~ name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = date, y = tmax, color = name)) + 
+  geom_smooth(se = FALSE) 
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmax, y = tmin)) + 
+  geom_hex() #doesnt show every data point, but it shows within density
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_binhex).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+## More kind sof plots
+
+``` r
+ggplot(weather_df) + geom_point(aes(x = tmax, y = tmin), color = "blue")
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+``` r
+ggplot(weather_df) + geom_point(aes(x = tmax, y = tmin, color = "blue"))
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+
+## Hisotgram
+
+``` r
+ggplot(weather_df, aes(x = tmax, color = name)) + 
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmax, fill = name)) + 
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmax, fill = name)) + 
+  geom_histogram(position = "dodge", binwidth = 2)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmax, fill = name)) + 
+  geom_density(alpha = .4, adjust = .5, color = "blue")
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = name, y = tmax)) + geom_boxplot()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+violin plots
+
+``` r
+weather_df %>%
+  ggplot(aes(x = name, y = tmax)) +
+  geom_violin()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = name, y = tmax)) + 
+  geom_violin(aes(fill = name), color = "blue", alpha = .5) + 
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_summary).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+Ridge Plots
+
+``` r
+ggplot(weather_df, aes(x = tmax, y = name)) + 
+  geom_density_ridges(scale = .85)
+```
+
+    ## Picking joint bandwidth of 1.84
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+``` r
+weather_df %>%  #piping - use weather_df in code for ggplot
+  ggplot(aes(x = tmax, y = name)) +
+  geom_density_ridges()
+```
+
+    ## Picking joint bandwidth of 1.84
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
+
+![](viz_and_eda_09262019_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
