@@ -1,0 +1,13 @@
+---
+title: "viz_and_eda_09262019"
+author: Britney Aazzetta
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggridges)
+```
+
