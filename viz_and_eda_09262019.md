@@ -27,19 +27,19 @@ weather_df =
 
     ## file path:          /Users/britneymazzetta/Library/Caches/rnoaa/ghcnd/USW00094728.dly
 
-    ## file last updated:  2019-09-05 20:49:58
+    ## file last updated:  2019-10-01 10:03:04
 
     ## file min/max dates: 1869-01-01 / 2019-09-30
 
     ## file path:          /Users/britneymazzetta/Library/Caches/rnoaa/ghcnd/USC00519397.dly
 
-    ## file last updated:  2019-09-05 20:50:08
+    ## file last updated:  2019-10-01 10:03:14
 
     ## file min/max dates: 1965-01-01 / 2019-09-30
 
     ## file path:          /Users/britneymazzetta/Library/Caches/rnoaa/ghcnd/USS0023B17S.dly
 
-    ## file last updated:  2019-09-26 10:25:23
+    ## file last updated:  2019-10-01 10:03:18
 
     ## file min/max dates: 1999-09-01 / 2019-09-30
 
