@@ -578,3 +578,15 @@ weather_df %>%
     ## .
     ## CentralPark_NY     Waikiki_HA   Waterhole_WA 
     ##            365            365            365
+
+``` r
+weather_df%>%
+  count(name) %>%
+  knitr::kable()
+```
+
+| name            |   n |
+| :-------------- | --: |
+| CentralPark\_NY | 365 |
+| Waikiki\_HA     | 365 |
+| Waterhole\_WA   | 365 |
